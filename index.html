@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Dashboard</title>
+    
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ΛLΞX JΛMΞS">
+    <link rel="apple-touch-icon" href="https://i.postimg.cc/qBGFpD6Z/ALEX-JAMES-GITHUB.png">
+    <meta name="msapplication-TileImage" content="https://i.postimg.cc/qBGFpD6Z/ALEX-JAMES-GITHUB.png">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta property="og:image" content="https://i.postimg.cc/qBGFpD6Z/ALEX-JAMES-GITHUB.png">
+    <meta name="twitter:image" content="https://i.postimg.cc/qBGFpD6Z/ALEX-JAMES-GITHUB.png">
+    <meta name="description" content="ΛLΞX JΛMΞS ᗪEV - UI/UX, Web/App Development, 3D & Branding Agency">
+    <meta property="og:title" content="ΛLΞX JΛMΞS ᗪEV">
+    <meta property="og:description" content="UI/UX, Web/App Development, 3D & Branding Agency">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="manifest" href="manifest.json">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 20px 15px;
+            display: flex;
+            justify-content: center;
+            
+            /* টেক্সট সিলেকশন বন্ধ করার জন্য CSS */
+            -webkit-user-select: none; /* Safari */
+            -moz-user-select: none;    /* Firefox */
+            -ms-user-select: none;     /* IE10+/Edge */
+            user-select: none;         /* Standard Chrome, Opera, etc. */
+        }
+
+        .dashboard {
+            width: 100%;
+            max-width: 850px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .card {
+            background-color: #1c1c1e;
+            border-radius: 14px;
+            padding: 20px;
+            border: 1px solid #2c2c2e;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+        }
+
+        .top-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 15px;
+        }
+
+        .tech-stack-card {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .tech-stack-card h3 {
+            font-size: 11px;
+            color: #8e8e93;
+            text-transform: uppercase;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .table-scroll-box {
+            width: 100%;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .table-scroll-box::-webkit-scrollbar { height: 4px; }
+        .table-scroll-box::-webkit-scrollbar-thumb { background: #3a3a3c; border-radius: 4px; }
+
+        .tech-stack-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            color: #aeaeb2;
+        }
+
+        .tech-stack-table td {
+            padding: 10px 5px;
+            vertical-align: bottom;
+            line-height: 1.4;
+        }
+
+        .tech-stack-table img {
+            object-fit: contain;
+            margin-bottom: 6px;
+            display: inline-block;
+        }
+
+        .trophy-connect-card {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .trophy-connect-card h3 {
+            font-size: 11px;
+            color: #8e8e93;
+            text-transform: uppercase;
+            font-weight: 600;
+            width: 100%;
+        }
+
+        .trophy-wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .trophy-wrapper img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .social-connect {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-start;
+            border-top: 1px solid #2c2c2e;
+            padding-top: 14px;
+        }
+
+        .social-buttons {
+            display: flex;
+            flex-wrap: nowrap; /* বাটনগুলোকে জোরপূর্বক এক লাইনে রাখার জন্য */
+            gap: 10px;
+            align-items: center;
+            overflow-x: auto; /* ছোট স্ক্রিনে যেন ভেঙে না গিয়ে স্ক্রল করা যায় */
+            width: 100%;
+        }
+
+        .social-buttons::-webkit-scrollbar { display: none; } /* স্ক্রলবার হাইড করার জন্য */
+
+        .social-buttons a {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            flex-shrink: 0; /* বাটন ছোট হওয়া রোধ করতে */
+        }
+
+        .social-buttons img {
+            height: 28px;
+            border-radius: 4px;
+        }
+
+        .middle-row {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 15px;
+        }
+
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .profile-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .profile-img-wrapper {
+            position: relative;
+        }
+
+        .profile-img {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2.5px solid #3b82f6; 
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+        }
+
+        .profile-info h2 {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+        }
+
+        .profile-meta {
+            font-size: 13px;
+            color: #8e8e93; 
+            line-height: 1.4;
+        }
+
+        .profile-meta strong {
+            color: #ffffff;
+        }
+
+        .level-badge {
+            display: inline-block;
+            background-color: rgba(59, 130, 246, 0.15);
+            color: #0a84ff; 
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 5px;
+            border: 1px solid rgba(59, 130, 246, 0.25);
+        }
+
+        .rating-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            background: #1c1c1e;
+            padding: 18px 20px;
+            min-height: 120px;
+            border: 1px solid #2c2c2e;
+            border-radius: 14px;
+            z-index: 1;
+        }
+
+        .rating-card h3 {
+            font-size: 11px;
+            color: #8e8e93;
+            font-weight: 600;
+            text-transform: uppercase;
+            z-index: 5;
+        }
+
+        .rating-card p {
+            font-size: 28px;
+            color: #ffffff;
+            font-weight: 700;
+            z-index: 5;
+            margin-top: auto;
+        }
+
+        .wave-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            z-index: 2;
+            overflow: hidden;
+            border-bottom-left-radius: 13px;
+            border-bottom-right-radius: 13px;
+        }
+
+        .wave-svg {
+            position: absolute;
+            bottom: -2px;
+            width: 200%;
+            height: 100%;
+        }
+
+        .wave1 {
+            fill: rgba(161, 68, 237, 0.35); 
+            animation: moveWave 5s linear infinite alternate;
+        }
+
+        .wave2 {
+            fill: rgba(10, 132, 255, 0.25); 
+            animation: moveWave 7s linear infinite alternate-reverse;
+            animation-delay: -1.5s;
+        }
+
+        .wave3 {
+            fill: rgba(48, 209, 88, 0.2); 
+            animation: moveWave 6s ease-in-out infinite alternate;
+            animation-delay: -2.5s;
+        }
+
+        .wave4 {
+            fill: rgba(255, 159, 10, 0.15); 
+            animation: moveWave 8s ease-in-out infinite alternate-reverse;
+            animation-delay: -4s;
+        }
+
+        .wave5 {
+            fill: rgba(0, 180, 171, 0.15); 
+            animation: moveWave 4s linear infinite alternate;
+            animation-delay: -0.5s;
+        }
+
+        @keyframes moveWave {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .solved-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            gap: 20px;
+        }
+
+        .progress-circle-wrapper {
+            position: relative;
+            width: 124px;
+            height: 124px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .progress-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: conic-gradient(
+                #00b4ab 0% 63.24%, 
+                #b07219 63.24% 74.53%, 
+                #f34b7d 74.53% 81.44%, 
+                #563d7c 81.44% 88.17%, 
+                #00599c 88.17% 94.23%, 
+                #3880f8 94.23% 100%
+            ); 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            flex-shrink: 0;
+            animation: rotateColors 8s linear infinite, ringGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes rotateColors {
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes ringGlow {
+            0% { box-shadow: 0 0 5px rgba(0, 180, 171, 0.1); }
+            100% { box-shadow: 0 0 15px rgba(0, 180, 171, 0.3); }
+        }
+
+        .progress-circle::before {
+            content: "";
+            position: absolute;
+            width: 102px;
+            height: 102px;
+            background-color: #1c1c1e;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .progress-text {
+            position: absolute;
+            text-align: center;
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            height: 100px;
+            pointer-events: none; 
+        }
+
+        .progress-text .count { 
+            font-size: 14px; 
+            font-weight: 700; 
+            color: #ffffff;
+            letter-spacing: -0.2px;
+            line-height: 1.2;
+        }
+        
+        .progress-text .label { 
+            font-size: 10px; 
+            color: #8e8e93; 
+            font-weight: 500; 
+            margin-top: 2px;
+        }
+
+        .difficulty-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex-grow: 1;
+        }
+
+        .diff-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .diff-name { display: flex; align-items: center; gap: 8px; color: #aeaeb2; }
+        .diff-name::before { content: ""; width: 8px; height: 8px; border-radius: 50%; }
+        
+        .dart .diff-name::before { background-color: #00b4ab; }
+        .java .diff-name::before { background-color: #b07219; }
+        .cpp .diff-name::before { background-color: #f34b7d; }
+        .css .diff-name::before { background-color: #563d7c; }
+        .cmake .diff-name::before { background-color: #00599c; }
+        .objc .diff-name::before { background-color: #3880f8; }
+
+        .diff-item strong { color: #ffffff; font-weight: 600; }
+
+        .github-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 12px;
+            height: 100%;
+        }
+
+        .github-stats-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .github-stats-wrapper img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            display: block;
+            border: 1px solid #2c2c2e;
+        }
+
+        .snake-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 15px;
+            background-color: #1c1c1e;
+        }
+
+        .snake-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+        }
+
+        .badge-wrapper {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .submission-card h3 { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+        .submission-meta { font-size: 12px; color: #8e8e93; margin-bottom: 12px; }
+
+        .heatmap-scroll-box {
+            width: 100%;
+            overflow-x: auto;
+            padding-bottom: 8px;
+        }
+
+        .heatmap-scroll-box::-webkit-scrollbar { height: 4px; }
+        .heatmap-scroll-box::-webkit-scrollbar-thumb { background: #3a3a3c; border-radius: 4px; }
+
+        .heatmap-wrapper {
+            display: flex;
+            gap: 8px;
+            width: max-content;
+        }
+
+        .days-labels {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            font-size: 10px;
+            color: #636366;
+            padding-top: 22px;
+            height: 102px;
+        }
+
+        .heatmap-container { flex-grow: 1; }
+        .months-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #8e8e93;
+            margin-bottom: 6px;
+            width: 100%;
+        }
+
+        .heatmap-grid { display: flex; gap: 3.5px; }
+        .week-column { display: flex; flex-direction: column; gap: 3.5px; }
+        .cube { width: 11px; height: 11px; border-radius: 2.5px; background-color: #2c2c2e; }
+
+        .lvl-1 { background-color: #0c3a1a; }
+        .lvl-2 { background-color: #12692f; }
+        .lvl-3 { background-color: #1db14f; }
+        .lvl-4 { background-color: #30d158; }
+
+        .year-header { font-size: 15px; font-weight: 700; color: #aeaeb2; margin-top: 12px; margin-bottom: -5px; padding-left: 4px; }
+
+        @media (max-width: 768px) {
+            .top-row, .middle-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard">
+
+    <div class="top-row">
+        <div class="card profile-card">
+            <div class="profile-img-wrapper">
+                <img class="profile-img" src="https://i.postimg.cc/PJ7SLstn/LLXX-JLMXS-ᗪEV.png" alt="Profile Picture">
+            </div>
+            <div class="profile-info">
+                <h2>ΛLΞX JΛMΞS ᗪEV</h2>
+                <div class="profile-meta">
+                    Email address: <strong>alexjames7830@gmail.com</strong><br>
+                </div>
+                <span class="level-badge">ΛLΞX JΛMΞS</span>
+            </div>
+        </div>
+        
+        <div class="card rating-card">
+            <h3>TOP</h3>
+            <p>73.23%</p>
+            <div class="wave-container">
+                <svg class="wave-svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path class="wave5" d="M0,60 C150,100 350,20 500,60 C650,100 850,20 1000,60 C1150,100 1300,40 1450,60 L1450,120 L0,120 Z"></path>
+                    <path class="wave4" d="M0,50 C180,20 320,90 500,50 C680,10 820,90 1000,50 C1180,10 1320,90 1500,50 L1500,120 L0,120 Z"></path>
+                    <path class="wave3" d="M0,40 C120,80 280,30 450,50 C620,70 780,20 950,40 C1120,60 1280,30 1450,50 L1450,120 L0,120 Z"></path>
+                    <path class="wave2" d="M0,30 C200,80 400,10 600,40 C800,70 1000,10 1200,30 L1200,120 L0,120 Z"></path>
+                    <path class="wave1" d="M0,20 C150,70 350,10 500,30 C650,50 850,10 1000,20 C1150,30 1300,10 1450,20 L1450,120 L0,120 Z"></path>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="card tech-stack-card">
+        <h3>Technologies & Tools</h3>
+        <div class="table-scroll-box">
+            <table class="tech-stack-table" align="center">
+              <tr>
+                <td align="center" width="96">
+                  <img src="https://techstack-generator.vercel.app/csharp-icon.svg" alt="icon" width="65" height="65" />
+                  <br>C#
+                </td>
+                <td align="center" width="96">
+                  <a href="#macropower-tech">
+                    <img src="https://techstack-generator.vercel.app/python-icon.svg" alt="icon" width="65" height="65" />
+                  </a>
+                  <br>Python
+                </td>
+                <td align="center" width="96">
+                  <img src="https://techstack-generator.vercel.app/js-icon.svg" alt="icon" width="65" height="65" />
+                  <br>Javascript
+                </td>
+                <td align="center" width="96">
+                  <img src="https://techstack-generator.vercel.app/cpp-icon.svg" alt="icon" width="65" height="65" />
+                  <br>C++
+                </td>
+                <td align="center" width="96">
+                  <img src="https://techstack-generator.vercel.app/django-icon.svg" alt="icon" width="65" height="65" />
+                  <br>Django
+                </td>
+                <td align="center" width="96">
+                  <img src="https://techstack-generator.vercel.app/restapi-icon.svg" width="65" height="65" alt="Rest API" />
+                  <br>Rest API
+                </td>
+                <td align="center" width="96">
+                  <img src="https://techstack-generator.vercel.app/docker-icon.svg" width="65" height="65" alt="Docker" />
+                  <br>Docker
+                </td>
+                <td align="center" width="96">
+                  <img src="https://techstack-generator.vercel.app/nginx-icon.svg" alt="icon" width="50" height="50" />
+                  <br>Nginx
+                </td>
+              </tr>
+              <tr>
+                <td align="center" width="96">
+                  <img src="https://skillicons.dev/icons?i=git" width="48" height="48" alt="Git" />
+                  <br>Git
+                </td>
+                <td align="center" width="96">
+                  <img src="https://skillicons.dev/icons?i=gitlab" width="48" height="48" alt="GitLab" />
+                  <br>GitLab
+                </td>
+                <td align="center" width="96">
+                  <img src="https://skillicons.dev/icons?i=html" width="48" height="48" alt="HTML" />
+                  <br>HTML
+                </td>
+                <td align="center" width="96">
+                  <img src="https://skillicons.dev/icons?i=css" width="48" height="48" alt="css" />
+                  <br>CSS
+                </td>
+                <td align="center" width="96">
+                  <img src="https://skillicons.dev/icons?i=bootstrap" width="48" height="48" alt="bootstrap" />
+                  <br>Bootstrap
+                </td>
+                <td align="center" width="96">
+                  <img src="https://skillicons.dev/icons?i=tailwind" width="48" height="48" alt="tailwind" />
+                  <br>Tailwind
+                </td>
+                <td align="center" width="96">
+                  <img src="https://skillicons.dev/icons?i=jquery" width="48" height="48" alt="jquery" />
+                  <br>JQuery
+                </td>
+                <td align="center" width="96">
+                  <img src="https://skillicons.dev/icons?i=postgres" width="48" height="48" alt="PostgreSQL" />
+                  <br>PostgreSQL
+                </td>
+                <td align="center" width="96">
+                  <img src="https://skillicons.dev/icons?i=dotnet" width="48" height="48" alt="ASP.NET Core" />
+                  <br>ASP.NET
+                </td>
+              </tr>
+              <tr>
+                <td align="center" width="96">
+                  <img src="https://skillicons.dev/icons?i=redis" width="48" height="48" alt="Redis" />
+                  <br>Redis
+                </td>
+                <td align="center" width="96">
+                  <img src="https://skillicons.dev/icons?i=postman" width="48" height="48" alt="Postman" />
+                  <br>Postman
+                </td>
+                <td align="center" width="96">
+                  <img src="https://skillicons.dev/icons?i=linux" width="48" height="48" alt="Linux" />
+                  <br>Linux
+                </td>
+                <td align="center" width="96">
+                  <img src="https://skillicons.dev/icons?i=dart" width="48" height="48" alt="dart" />
+                  <br>Dart
+                </td>
+                <td align="center" width="96">
+                  <img src="https://skillicons.dev/icons?i=rabbitmq" width="48" height="48" alt="RabbitMQ" />
+                  <br>RabbitMQ
+                </td>
+                <td align="center" width="96">
+                  <img src="https://skillicons.dev/icons?i=sentry" width="48" height="48" alt="sentry" />
+                  <br>sentry
+                </td>
+                <td align="center" width="96">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Celery_logo.png" width="48" height="48" alt="Celery" />
+                  <br>Celery
+                </td>
+                <td align="center" width="96">
+                  <img src="https://docusaurus.io/img/docusaurus_keytar.svg" width="48" height="48" alt="Docusaurus" />
+                  <br>Docusaurus
+                </td>
+                <td align="center" width="96">
+                  <img src="https://bruhin.software/img/logos/pytest.svg" width="40" height="40" alt="Pytest" />
+                  <br>Pytest
+                </td>
+              </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card trophy-connect-card">
+        <h3>GitHub Profile Trophy 🏆</h3>
+        <div class="trophy-wrapper">
+            <img src="https://user-images.githubusercontent.com/6661165/93668661-e0ca9f00-fac8-11ea-9bec-325454f49fb4.png" alt="Trophies Row 1">
+            <img src="https://user-images.githubusercontent.com/6661165/113709167-2412f500-971d-11eb-9ee5-0ab292cf8b4c.png" alt="Trophies Row 2">
+        </div>
+        
+        <div class="social-connect">
+            <h3 style="margin-bottom: 8px; text-transform: none; font-size: 13px; color: #ffffff;">Connect with me:</h3>
+            <div class="social-buttons">
+                <a href="https://wa.me/8801977547920" target="_blank">
+                    <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/stack-overflow.svg" alt="Stack Overflow" style="height: 30px; width: 40px; background: #2c2c2e; padding: 2px; border-radius: 4px;" />
+                    <a href="https://github.com/AlexJamesHQ" target="_blank">
+                    <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />
+                    </a>
+                </a>
+                <a href="https://www.facebook.com/share/1BibjbqQS6/" target="_blank">
+                    <img src="https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white" alt="Facebook" />
+                </a>
+                <a href="https://www.instagram.com/alex.james.dev?igsh=dDg5cG5nZTB6aDBx" target="_blank">
+                    <img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram" />
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="middle-row">
+        <div class="card github-card">
+            <div style="text-align: center; width: 100%; margin-bottom: 4px;">
+                <h3 style="font-size: 11px; color: #8e8e93; text-transform: uppercase; font-weight: 600;">GitHub Activity</h3>
+            </div>
+            <div class="github-stats-wrapper">
+                <img src="https://github-readme-streak-stats.herokuapp.com/?user=msob7yy&theme=dark&hide_border=true" alt="GitHub Streak Stats" />
+            </div>
+        </div>
+
+        <div class="right-column">
+            <div class="card solved-card">
+                <div class="progress-circle-wrapper">
+                    <div class="progress-circle"></div>
+                    
+                    <div class="progress-text">
+                        <span class="count">6 Languages</span>
+                        <span class="label">Most Used</span>
+                    </div>
+                </div>
+                <div class="difficulty-list">
+                    <div class="diff-item dart"><span class="diff-name">Dart</span> <strong>63.24%</strong></div>
+                    <div class="diff-item java"><span class="diff-name">Java</span> <strong>11.29%</strong></div>
+                    <div class="diff-item cpp"><span class="diff-name">C++</span> <strong>6.91%</strong></div>
+                    <div class="diff-item css"><span class="diff-name">CSS</span> <strong>6.73%</strong></div>
+                    <div class="diff-item cmake"><span class="diff-name">CMake</span> <strong>6.06%</strong></div>
+                    <div class="diff-item objc"><span class="diff-name">Objective-C</span> <strong>5.77%</strong></div>
+                </div>
+            </div>
+
+            <div class="card snake-card">
+                <div style="width: 100%; display: flex; justify-content: center;">
+                    <img src="https://profile-readme-generator.com/assets/snake.svg" alt="Snake animation" />
+                </div>
+                
+                <div class="badge-wrapper">
+                    <img alt="NPM Downloads" src="https://img.shields.io/npm/dm/animejs?style=flat-square&logo=npm">
+                    <img alt="GitHub Sponsors" src="https://img.shields.io/github/sponsors/juliangarnier?style=flat-square&logo=github">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="year-header">2026</div>
+    <div class="card submission-card">
+        <h3>637 submissions in 2026</h3>
+        <div class="submission-meta">Total active days: 112 &nbsp;•&nbsp; Max streak: 14</div>
+        <div class="heatmap-scroll-box">
+            <div class="heatmap-wrapper">
+                <div class="days-labels"><span>Mon</span><span>Wed</span><span>Fri</span></div>
+                <div class="heatmap-container">
+                    <div class="months-row">
+                        <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span>
+                    </div>
+                    <div class="heatmap-grid" id="grid-2026"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="year-header">2025</div>
+    <div class="card submission-card">
+        <h3>2,022 submissions in 2025</h3>
+        <div class="submission-meta">Total active days: 304 &nbsp;•&nbsp; Max streak: 45</div>
+        <div class="heatmap-scroll-box">
+            <div class="heatmap-wrapper">
+                <div class="days-labels"><span>Mon</span><span>Wed</span><span>Fri</span></div>
+                <div class="heatmap-container">
+                    <div class="months-row">
+                        <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span>
+                    </div>
+                    <div class="heatmap-grid" id="grid-2025"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // কপি, রাইট-ক্লিক এবং ঠেসে ধরে সিলেকশন বন্ধ করার স্ক্রিপ্ট
+    document.addEventListener('contextmenu', event => event.preventDefault()); // রাইট ক্লিক বন্ধ
+    document.addEventListener('copy', event => event.preventDefault());        // কপি কমান্ড বন্ধ
+    document.addEventListener('keydown', event => {
+        // Ctrl+C অথবা Cmd+C বন্ধ করার জন্য
+        if ((event.ctrlKey || event.metaKey) && event.key === 'c') {
+            event.preventDefault();
+        }
+    });
+    document.addEventListener('dragstart', event => event.preventDefault());   // ইমেজ/টেক্সট ড্র্যাগ করা বন্ধ
+    document.addEventListener('selectstart', event => event.preventDefault()); // ড্র্যাগ করে টেক্সট সিলেক্ট করা বন্ধ
+
+    function renderYearGrid(gridId, isActiveYear) {
+        const grid = document.getElementById(gridId);
+        for (let w = 0; w < 53; w++) {
+            const column = document.createElement('div');
+            column.className = 'week-column';
+            for (let d = 0; d < 7; d++) {
+                const cube = document.createElement('div');
+                cube.className = 'cube';
+                let rand = Math.random();
+                if (isActiveYear) {
+                    if (rand > 0.15) {
+                        let lvls = ['lvl-1', 'lvl-2', 'lvl-3', 'lvl-4'];
+                        cube.classList.add(lvls[Math.floor(Math.random() * lvls.length)]);
+                    }
+                } else {
+                    if (rand > 0.65) cube.classList.add('lvl-1');
+                    else if (rand > 0.85) cube.classList.add('lvl-2');
+                }
+                column.appendChild(cube);
+            }
+            grid.appendChild(column);
+        }
+    }
+    
+    renderYearGrid('grid-2026', true);
+    renderYearGrid('grid-2025', true);
+</script>
+
+</body>
+</html>
