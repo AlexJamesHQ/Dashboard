@@ -340,6 +340,7 @@
             transition: transform 0.2s ease;
         }
 
+        /* 🌸 Classic Falling Animation 🌸 */
         .falling-particle {
             position: fixed;
             top: -60px;
@@ -366,9 +367,12 @@
                 transform: translateY(0) rotate(0deg);
                 opacity: 1;
             }
+            80% {
+                opacity: 1;
+            }
             100% {
-                transform: translateY(105vh) rotate(360deg);
-                opacity: 0.3;
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
             }
         }
 
@@ -679,7 +683,7 @@
 </head>
 <body>
 
-<!-- Dual Audio Players for Overlap Crossfade & Smooth Fade In/Out -->
+<!-- Dual Audio Players -->
 <audio id="audioA" preload="auto">
     <source src="https://files.catbox.moe/pmy3vu.mp3" type="audio/mp3">
 </audio>
@@ -857,9 +861,13 @@
                 <div class="days-labels"><span>Mon</span><span>Wed</span><span>Fri</span></div>
                 <div class="heatmap-container">
                     <div class="months-row">
-                        <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span>
+                        <span>Jan</span><span>Wed</span><span>Fri</span></div>
+                    <div class="heatmap-container">
+                        <div class="months-row">
+                            <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span>
+                        </div>
+                        <div class="heatmap-grid" id="grid-2025"></div>
                     </div>
-                    <div class="heatmap-grid" id="grid-2025"></div>
                 </div>
             </div>
         </div>
@@ -983,12 +991,12 @@
     let currentAudioPlayer = null;
     let crossfadeCheckTimer = null;
     let fadeInterval = null;
-    const CROSSFADE_TIME = 2.5; // Overlap in seconds before end
-    const FADE_IN_TIME = 2000;   // Fade-in duration in ms
-    const FADE_OUT_TIME = 1500;  // Fade-out duration on close in ms
+    const CROSSFADE_TIME = 2.5; 
+    const FADE_IN_TIME = 2000;   
+    const FADE_OUT_TIME = 1500;  
 
     function playAudioWithFade() {
-        stopAudioEngineImmediate(); // Clear previous states immediately if re-opened
+        stopAudioEngineImmediate(); 
         
         const audioA = document.getElementById('audioA');
         audioA.currentTime = 0;
@@ -1053,7 +1061,6 @@
         }, 200);
     }
 
-    // Smooth Fade Out on Closing
     function stopAudioWithFade(duration = FADE_OUT_TIME) {
         clearInterval(crossfadeCheckTimer);
         clearInterval(fadeInterval);
@@ -1147,8 +1154,6 @@
         document.getElementById('galleryUilayer').classList.add('active');
         initSliderSetup();
         startFallingParticles();
-
-        // Play Audio with Smooth Fade-in
         playAudioWithFade();
     }
 
@@ -1157,8 +1162,6 @@
         clearInterval(autoScrollTimer);
         stopFallingParticles();
         document.getElementById('scoreGridBoard').classList.remove('visible');
-
-        // Smoothly Fade Out Audio over 1.5 seconds when closing
         stopAudioWithFade(1500);
     }
 
@@ -1172,23 +1175,34 @@
             const chosenEmoji = items[Math.floor(Math.random() * items.length)];
             particle.innerText = chosenEmoji;
             
-            particle.style.left = Math.random() * 90 + 5 + 'vw';
+            const randomX = Math.random() * 90 + 5;
+            particle.style.left = randomX + 'vw';
             
             const duration = Math.random() * 3 + 3; 
             particle.style.animationDuration = duration + 's';
-            
+
+            let isPopped = false;
+
             const triggerAction = function(e) {
-                e.stopPropagation();
-                e.preventDefault();
-                
-                let clientX = e.clientX;
-                let clientY = e.clientY;
-                if (e.touches && e.touches.length > 0) {
-                    clientX = e.touches[0].clientX;
-                    clientY = e.touches[0].clientY;
-                } else if (e.changedTouches && e.changedTouches.length > 0) {
-                    clientX = e.changedTouches[0].clientX;
-                    clientY = e.changedTouches[0].clientY;
+                if (isPopped) return;
+                isPopped = true;
+
+                let clientX = window.innerWidth * (randomX / 100);
+                let clientY = window.innerHeight * 0.5;
+
+                if (e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    if (e.touches && e.touches.length > 0) {
+                        clientX = e.touches[0].clientX;
+                        clientY = e.touches[0].clientY;
+                    } else if (e.changedTouches && e.changedTouches.length > 0) {
+                        clientX = e.changedTouches[0].clientX;
+                        clientY = e.changedTouches[0].clientY;
+                    } else if (e.clientX && e.clientY) {
+                        clientX = e.clientX;
+                        clientY = e.clientY;
+                    }
                 }
                 
                 const scoreBoard = document.getElementById('scoreGridBoard');
@@ -1219,11 +1233,14 @@
             
             layer.appendChild(particle);
             
+            // Clean up elements smoothly after they exit bottom screen
             setTimeout(() => {
-                if(particle.parentNode) particle.remove();
+                if (particle.parentNode && !isPopped) {
+                    particle.remove();
+                }
             }, duration * 1000);
 
-        }, 220); 
+        }, 250); 
     }
 
     function updateCountersUI() {
