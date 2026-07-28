@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Dashboard</title>
+    
+    <meta name="theme-color" content="#141218">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ΛLΞX JΛMΞS">
+    <link rel="apple-touch-icon" href="https://i.postimg.cc/qBGFpD6Z/ALEX-JAMES-GITHUB.png">
+    <meta name="msapplication-TileImage" content="https://i.postimg.cc/qBGFpD6Z/ALEX-JAMES-GITHUB.png">
+    <meta name="msapplication-TileColor" content="#141218">
+    <meta property="og:image" content="https://i.postimg.cc/qBGFpD6Z/ALEX-JAMES-GITHUB.png">
+    <meta name="twitter:image" content="https://i.postimg.cc/qBGFpD6Z/ALEX-JAMES-GITHUB.png">
+    <meta name="description" content="ΛLΞX JΛMΞS ᗪEV - UI/UX, Web/App Development, 3D & Branding Agency">
+    <meta property="og:title" content="ΛLΞX JΛMΞS ᗪEV">
+    <meta property="og:description" content="UI/UX, Web/App Development, 3D & Branding Agency">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="manifest" href="manifest.json">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+            -webkit-tap-highlight-color: transparent !important;
+            outline: none !important;
+        }
+
+        body {
+            background-color: #141218;
+            color: #e6e1e5;
+            padding: 20px 15px;
+            display: flex;
+            justify-content: center;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .dashboard {
+            width: 100%;
+            max-width: 850px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding-bottom: 80px; 
+        }
+
+        .card {
+            background-color: #1d1b20;
+            border-radius: 28px;
+            padding: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+            transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+        }
+
+        .top-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 15px;
+        }
+
+        .tech-stack-card {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .tech-stack-card h3 {
+            font-size: 12px;
+            color: #d0bcff;
+            text-transform: uppercase;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        .table-scroll-box {
+            width: 100%;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .table-scroll-box::-webkit-scrollbar { height: 4px; }
+        .table-scroll-box::-webkit-scrollbar-thumb { background: #49454f; border-radius: 4px; }
+
+        .tech-stack-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            color: #cac4d0;
+        }
+
+        .tech-stack-table td {
+            padding: 10px 5px;
+            vertical-align: bottom;
+            line-height: 1.4;
+        }
+
+        .tech-stack-table img {
+            object-fit: contain;
+            margin-bottom: 6px;
+            display: inline-block;
+        }
+
+        .trophy-connect-card {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .trophy-connect-card h3 {
+            font-size: 12px;
+            color: #d0bcff;
+            text-transform: uppercase;
+            font-weight: 700;
+            width: 100%;
+            letter-spacing: 1px;
+        }
+
+        .trophy-wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .trophy-wrapper img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 16px;
+        }
+
+        .social-connect-links {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 14px;
+        }
+
+        .social-connect-links a {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .social-connect-links img {
+            height: 32px;
+            border-radius: 8px;
+        }
+
+        .ios-action-trigger {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, #4f378b 0%, #21005d 100%);
+            border: 1px solid #d0bcff;
+            padding: 6px 12px;
+            border-radius: 18px;
+            cursor: pointer;
+            position: relative;
+            z-index: 999;
+            box-shadow: 0 3px 12px rgba(208, 188, 255, 0.2);
+            transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+        }
+
+        .ios-action-trigger:active {
+            transform: scale(0.92);
+            box-shadow: 0 1px 6px rgba(208, 188, 255, 0.15);
+        }
+
+        .ios-btn-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+
+        .ios-action-trigger span {
+            color: #eaddff;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .ios-gallery-btn {
+            background: linear-gradient(135deg, #005138 0%, #002114 100%);
+            border-color: #6edfaf;
+            box-shadow: 0 3px 12px rgba(110, 223, 175, 0.2);
+        }
+        
+        .ios-gallery-btn:active {
+            box-shadow: 0 1px 6px rgba(110, 223, 175, 0.15);
+        }
+
+        .ios-ui-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(20, 18, 24, 0.75);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            z-index: 100000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.35s cubic-bezier(0.2, 0, 0, 1);
+            overflow: hidden;
+        }
+
+        .ios-ui-layer.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .ios-sheet-container {
+            background: #2b2930;
+            width: 90%;
+            max-width: 380px;
+            border-radius: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 28px;
+            text-align: center;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
+            transform: scale(0.85) translateY(20px);
+            transition: all 0.4s cubic-bezier(0.2, 0, 0, 1);
+            position: relative;
+            z-index: 100005; 
+        }
+
+        .ios-ui-layer.active .ios-sheet-container {
+            transform: scale(1) translateY(0);
+        }
+
+        .ios-score-grid {
+            background: rgba(30, 27, 38, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 24px;
+            padding: 14px;
+            display: none;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 18px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            transform: translateY(25px) scale(0.92);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .ios-score-grid.visible {
+            display: grid;
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .score-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 10px;
+            border-radius: 16px;
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        #card_heart { color: #ffb4ab; }
+        #card_heart .score-badge { color: #ffb4ab; }
+        #card_heart.pulse-pop {
+            transform: scale(1.18);
+            background: rgba(255, 180, 171, 0.22);
+            border-color: #ffb4ab;
+            box-shadow: 0 0 18px rgba(255, 180, 171, 0.8);
+        }
+
+        #card_sparkle_heart { color: #ffb4ab; }
+        #card_sparkle_heart .score-badge { color: #ffb4ab; }
+        #card_sparkle_heart.pulse-pop {
+            transform: scale(1.18);
+            background: rgba(255, 180, 171, 0.22);
+            border-color: #ffb4ab;
+            box-shadow: 0 0 18px rgba(255, 180, 171, 0.8);
+        }
+
+        #card_sakura { color: #ffd8e4; }
+        #card_sakura .score-badge { color: #ffd8e4; }
+        #card_sakura.pulse-pop {
+            transform: scale(1.18);
+            background: rgba(255, 216, 228, 0.22);
+            border-color: #ffd8e4;
+            box-shadow: 0 0 18px rgba(255, 216, 228, 0.8);
+        }
+
+        #card_rose { color: #ffb4ab; }
+        #card_rose .score-badge { color: #ffb4ab; }
+        #card_rose.pulse-pop {
+            transform: scale(1.18);
+            background: rgba(255, 180, 171, 0.22);
+            border-color: #ffb4ab;
+            box-shadow: 0 0 18px rgba(255, 180, 171, 0.8);
+        }
+
+        #card_star { color: #ffe082; }
+        #card_star .score-badge { color: #ffe082; }
+        #card_star.pulse-pop {
+            transform: scale(1.18);
+            background: rgba(255, 224, 130, 0.22);
+            border-color: #ffe082;
+            box-shadow: 0 0 18px rgba(255, 224, 130, 0.85);
+        }
+
+        #card_tulip { color: #d0bcff; }
+        #card_tulip .score-badge { color: #d0bcff; }
+        #card_tulip.pulse-pop {
+            transform: scale(1.18);
+            background: rgba(208, 188, 255, 0.22);
+            border-color: #d0bcff;
+            box-shadow: 0 0 18px rgba(208, 188, 255, 0.85);
+        }
+
+        .score-badge {
+            font-size: 13px;
+            font-weight: 700;
+            transition: transform 0.2s ease;
+        }
+
+        .falling-particle {
+            position: fixed;
+            top: -60px;
+            font-size: 32px;
+            z-index: 100001; 
+            pointer-events: auto; 
+            cursor: pointer;
+            animation: fallEffect linear forwards;
+            transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            padding: 20px;
+            margin: -20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-touch-callout: none;
+        }
+
+        .falling-particle:hover {
+            transform: scale(1.4);
+        }
+
+        @keyframes fallEffect {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .burst-sparkle {
+            position: fixed;
+            font-size: 20px;
+            pointer-events: none;
+            z-index: 100006; 
+            animation: explode 0.65s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: translate(0, 0) scale(1.6);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--x), var(--y)) scale(0.2) rotate(220deg);
+                opacity: 0;
+            }
+        }
+
+        .modal-profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 20px;
+            object-fit: cover;
+            border: 3px solid #d0bcff;
+            box-shadow: 0 8px 24px rgba(208, 188, 255, 0.35);
+            margin-bottom: 16px;
+        }
+
+        .ios-sheet-container h2 {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+            color: #e6e1e5;
+        }
+
+        .ios-sheet-container p {
+            font-size: 14px;
+            color: #cac4d0;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
+        .ios-gallery-slider {
+            width: 100%;
+            height: 230px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 14px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .ios-slider-track {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1);
+        }
+
+        .ios-slide-node {
+            min-width: 100%;
+            height: 100%;
+        }
+
+        .ios-slide-node img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .ios-nav-dots {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            z-index: 10;
+        }
+
+        .ios-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.25s ease;
+        }
+
+        .ios-dot.active {
+            background: #d0bcff;
+            transform: scale(1.2);
+            width: 18px;
+            border-radius: 4px;
+        }
+
+        .ios-action-dismiss {
+            background: #d0bcff;
+            color: #381e72;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            border-radius: 20px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(208, 188, 255, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        .ios-action-dismiss:active {
+            transform: scale(0.96);
+            background: #b69df8;
+        }
+
+        .ios-fixed-menu-scope {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .ios-menu-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: flex-end;
+            margin-bottom: 14px;
+            pointer-events: none;
+        }
+
+        .ios-btn-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(30px) scale(0.7);
+            transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1), opacity 0.3s cubic-bezier(0.2, 0, 0, 1), visibility 0.3s;
+        }
+
+        .ios-btn-label {
+            background-color: #4a4458;
+            color: #f5eff7;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .ios-btn-circle {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: transform 0.2s ease;
+        }
+
+        .bg-telegram { background: #229ED9; }
+        .bg-github   { background: #181717; }
+        .bg-whatsapp { background: #25D366; }
+        .bg-facebook { background: #1877F2; }
+        .bg-instagram{ background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+
+        .ios-trigger-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 6px 20px rgba(208, 188, 255, 0.3);
+            border: 3px solid #d0bcff; 
+            overflow: hidden;
+            background: #2b2930;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: auto;
+            transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1), border-color 0.3s ease;
+        }
+
+        .ios-trigger-btn .trigger-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s cubic-bezier(0.2, 0, 0, 1), opacity 0.3s ease;
+        }
+
+        .ios-trigger-btn .close-icon {
+            position: absolute;
+            opacity: 0;
+            transform: scale(0.5) rotate(-90deg);
+            transition: transform 0.5s cubic-bezier(0.2, 0, 0, 1), opacity 0.3s ease;
+        }
+
+        .menu-open { pointer-events: auto; }
+        .menu-open .ios-menu-container { pointer-events: auto; }
+        .menu-open .ios-btn-wrapper { opacity: 1; visibility: visible; transform: translateY(0) scale(1); pointer-events: auto; }
+        .menu-open .ios-trigger-btn { border-color: #ffb4ab; box-shadow: 0 6px 20px rgba(255, 180, 171, 0.3); }
+        .menu-open .ios-trigger-btn .trigger-img { transform: scale(0.3) rotate(180deg); opacity: 0; }
+        .menu-open .ios-trigger-btn .close-icon { opacity: 1; transform: scale(1) rotate(0deg); }
+
+        .ios-btn-wrapper:active, .ios-trigger-btn:active { transform: scale(0.92); }
+
+        .menu-open .ios-btn-wrapper:nth-child(5) { transition-delay: 0.02s; }
+        .menu-open .ios-btn-wrapper:nth-child(4) { transition-delay: 0.06s; }
+        .menu-open .ios-btn-wrapper:nth-child(3) { transition-delay: 0.10s; }
+        .menu-open .ios-btn-wrapper:nth-child(2) { transition-delay: 0.14s; }
+        .menu-open .ios-btn-wrapper:nth-child(1) { transition-delay: 0.18s; }
+
+        .middle-row { display: grid; grid-template-columns: 1fr 1.3fr; gap: 15px; }
+        .right-column { display: flex; flex-direction: column; gap: 15px; }
+        
+        .profile-card { 
+            display: flex; 
+            align-items: center; 
+            gap: 20px; 
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .profile-img-wrapper { 
+            position: relative; 
+            width: 86px;
+            height: 86px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border-radius: 24px;
+        }
+
+        .profile-img-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 24px;
+            border: 2px dashed #d0bcff;
+            animation: profileSpin 12s linear infinite;
+        }
+
+        .profile-img-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: -9px;
+            border-radius: 28px;
+            border: 2px solid rgba(208, 188, 255, 0.35);
+            animation: profilePulse 2.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes profileSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes profilePulse {
+            0% { transform: scale(0.95); opacity: 0.4; }
+            100% { transform: scale(1.05); opacity: 0.9; }
+        }
+
+        .profile-img { 
+            width: 76px; 
+            height: 76px; 
+            border-radius: 20px; 
+            object-fit: cover; 
+            border: 2.5px solid #d0bcff; 
+            box-shadow: 0 4px 12px rgba(208, 188, 255, 0.4);
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-info h2 { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 4px; color: #e6e1e5; }
+        .profile-meta { font-size: 13px; color: #cac4d0; line-height: 1.4; margin-top: 5px; margin-bottom: 10px; }
+        .profile-meta strong { color: #d0bcff; }
+        
+        .card-inline-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 2px;
+        }
+
+        /* Enhanced Rating Card with Larger, Rich Waves & 73.23% Styling Alignment */
+        .rating-card { 
+            position: relative; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between; 
+            overflow: hidden; 
+            background: linear-gradient(145deg, #1d1b20 0%, #25222b 100%); 
+            padding: 24px; 
+            min-height: 150px; 
+            border: 1px solid rgba(208, 188, 255, 0.2); 
+            border-radius: 28px; 
+            z-index: 1; 
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+        }
+        .rating-card h3 { 
+            font-size: 12px; 
+            color: #d0bcff; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            z-index: 5; 
+            letter-spacing: 1.2px; 
+        }
+        .rating-card p { 
+            font-size: 34px; 
+            color: #eaddff; 
+            font-weight: 800; 
+            z-index: 5; 
+            margin-top: auto; 
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 12px rgba(208, 188, 255, 0.3);
+        }
+
+        .wave-container { 
+            position: absolute; 
+            bottom: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 75px; 
+            z-index: 2; 
+            overflow: hidden; 
+            border-bottom-left-radius: 27px; 
+            border-bottom-right-radius: 27px; 
+        }
+        .wave-svg { 
+            position: absolute; 
+            bottom: -4px; 
+            width: 200%; 
+            height: 100%; 
+        }
+        .wave1 { fill: rgba(208, 188, 255, 0.35); animation: moveWave 4.5s linear infinite alternate; }
+        .wave2 { fill: rgba(186, 157, 248, 0.28); animation: moveWave 6.5s linear infinite alternate-reverse; animation-delay: -1.2s; }
+        .wave3 { fill: rgba(110, 223, 175, 0.25); animation: moveWave 5.5s ease-in-out infinite alternate; animation-delay: -2.2s; }
+        .wave4 { fill: rgba(255, 224, 130, 0.22); animation: moveWave 7.5s ease-in-out infinite alternate-reverse; animation-delay: -3.5s; }
+        .wave5 { fill: rgba(100, 210, 255, 0.22); animation: moveWave 3.8s linear infinite alternate; animation-delay: -0.4s; }
+
+        @keyframes moveWave { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        .solved-card { display: flex; align-items: center; justify-content: space-around; gap: 20px; }
+        .progress-circle-wrapper { position: relative; width: 124px; height: 124px; display: flex; align-items: center; justify-content: center; }
+        .progress-circle { width: 120px; height: 120px; border-radius: 50%; background: conic-gradient(#6edfaf 0% 63.24%, #b07219 63.24% 74.53%, #f34b7d 74.53% 81.44%, #ba9df8 81.44% 88.17%, #64d2ff 88.17% 94.23%, #d0bcff 94.23% 100%); display: flex; align-items: center; justify-content: center; position: relative; flex-shrink: 0; animation: rotateColors 8s linear infinite, ringGlow 3s ease-in-out infinite alternate; }
+        @keyframes rotateColors { 100% { transform: rotate(360deg); } }
+        @keyframes ringGlow { 0% { box-shadow: 0 0 5px rgba(110, 223, 175, 0.1); } 100% { box-shadow: 0 0 15px rgba(110, 223, 175, 0.3); } }
+        .progress-circle::before { content: ""; position: absolute; width: 102px; height: 102px; background-color: #1d1b20; border-radius: 50%; z-index: 1; }
+        .progress-text { position: absolute; text-align: center; z-index: 5; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100px; height: 100px; pointer-events: none; }
+        .progress-text .count { font-size: 14px; font-weight: 700; color: #e6e1e5; letter-spacing: -0.2px; line-height: 1.2; }
+        .progress-text .label { font-size: 10px; color: #cac4d0; font-weight: 500; margin-top: 2px; }
+
+        .difficulty-list { display: flex; flex-direction: column; gap: 8px; flex-grow: 1; }
+        .diff-item { display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
+        .diff-name { display: flex; align-items: center; gap: 8px; color: #cac4d0; }
+        .diff-name::before { content: ""; width: 8px; height: 8px; border-radius: 50%; }
+        .dart .diff-name::before { background-color: #6edfaf; }
+        .java .diff-name::before { background-color: #b07219; }
+        .cpp .diff-name::before { background-color: #f34b7d; }
+        .css .diff-name::before { background-color: #ba9df8; }
+        .cmake .diff-name::before { background-color: #64d2ff; }
+        .objc .diff-name::before { background-color: #d0bcff; }
+        .diff-item strong { color: #e6e1e5; font-weight: 600; }
+
+        .github-card { display: flex; flex-direction: column; justify-content: flex-start; align-items: center; gap: 12px; height: 100%; }
+        .github-stats-wrapper { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+        .github-stats-wrapper img { width: 100%; height: auto; border-radius: 16px; display: block; border: 1px solid rgba(255, 255, 255, 0.08); }
+        
+        .snake-card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; background-color: #1d1b20; width: 100%; height: 100%; border-radius: 28px; border: 1px solid rgba(255, 255, 255, 0.08); }
+        .snake-card img { max-width: 100%; height: auto; border-radius: 12px; }
+
+        .submission-card h3 { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+        .submission-meta { font-size: 12px; color: #cac4d0; margin-bottom: 12px; }
+        .heatmap-scroll-box { width: 100%; overflow-x: auto; padding-bottom: 8px; }
+        .heatmap-scroll-box::-webkit-scrollbar { height: 4px; }
+        .heatmap-scroll-box::-webkit-scrollbar-thumb { background: #49454f; border-radius: 4px; }
+        .heatmap-wrapper { display: flex; gap: 8px; width: max-content; }
+        .days-labels { display: flex; flex-direction: column; justify-content: space-between; font-size: 10px; color: #938f99; padding-top: 22px; height: 102px; }
+        .heatmap-container { flex-grow: 1; }
+        .months-row { display: flex; justify-content: space-between; font-size: 11px; color: #cac4d0; margin-bottom: 6px; width: 100%; }
+        .heatmap-grid { display: flex; gap: 3.5px; }
+        .week-column { display: flex; flex-direction: column; gap: 3.5px; }
+        
+        .cube { width: 11px; height: 11px; border-radius: 3px; background-color: #161b22; }
+        .lvl-1 { background-color: #0e4429; }
+        .lvl-2 { background-color: #006d32; }
+        .lvl-3 { background-color: #26a641; }
+        .lvl-4 { background-color: #39d353; }
+
+        .year-header { font-size: 15px; font-weight: 700; color: #d0bcff; margin-top: 12px; margin-bottom: -5px; padding-left: 4px; letter-spacing: 0.5px; }
+
+        @media (max-width: 768px) {
+            .top-row, .middle-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<audio id="audioA" preload="auto">
+    <source src="https://files.catbox.moe/pmy3vu.mp3" type="audio/mp3">
+</audio>
+<audio id="audioB" preload="auto">
+    <source src="https://files.catbox.moe/pmy3vu.mp3" type="audio/mp3">
+</audio>
+
+<div class="dashboard">
+
+    <div class="top-row">
+        <div class="card profile-card">
+            <div class="profile-img-wrapper">
+                <img class="profile-img" src="https://github.com/user-attachments/assets/1e567e29-cf52-4fc1-b638-48bc4de91b57" alt="Profile Picture">
+            </div>
+            <div class="profile-info">
+                <h2>ΛLΞX JΛMΞS ᗪEV</h2>
+                
+                <div class="profile-meta">
+                    Email address: <strong>alexjames7830@gmail.com</strong>
+                </div>
+
+                <div class="card-inline-buttons">
+                    <div class="ios-action-trigger ios-gallery-btn" onclick="openGalleryLayer()">
+                        <span>GALLERY</span>
+                    </div>
+                    <div class="ios-action-trigger" onclick="openProfileLayer()">
+                        <span>ABOUT</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card rating-card">
+            <h3>TOP</h3>
+            <p>73.23%</p>
+            <div class="wave-container">
+                <svg class="wave-svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path class="wave5" d="M0,50 C150,90 350,10 500,50 C650,90 850,10 1000,50 C1150,90 1300,30 1450,50 L1450,120 L0,120 Z"></path>
+                    <path class="wave4" d="M0,40 C180,10 320,80 500,40 C680,0 820,80 1000,40 C1180,0 1320,80 1500,40 L1500,120 L0,120 Z"></path>
+                    <path class="wave3" d="M0,35 C120,75 280,20 450,40 C620,60 780,10 950,35 C1120,55 1280,20 1450,40 L1450,120 L0,120 Z"></path>
+                    <path class="wave2" d="M0,25 C200,75 400,0 600,30 C800,60 1000,0 1200,25 L1200,120 L0,120 Z"></path>
+                    <path class="wave1" d="M0,15 C150,65 350,0 500,25 C650,50 850,0 1000,15 C1150,30 1300,0 1450,15 L1450,120 L0,120 Z"></path>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="card tech-stack-card">
+        <h3>Technologies & Tools</h3>
+        <div class="table-scroll-box">
+            <table class="tech-stack-table" align="center">
+              <tr>
+                <td align="center" width="96"><img src="https://techstack-generator.vercel.app/csharp-icon.svg" alt="icon" width="65" height="65" /><br>C#</td>
+                <td align="center" width="96"><a href="#macropower-tech"><img src="https://techstack-generator.vercel.app/python-icon.svg" alt="icon" width="65" height="65" /></a><br>Python</td>
+                <td align="center" width="96"><img src="https://techstack-generator.vercel.app/js-icon.svg" alt="icon" width="65" height="65" /><br>Javascript</td>
+                <td align="center" width="96"><img src="https://techstack-generator.vercel.app/cpp-icon.svg" alt="icon" width="65" height="65" /><br>C++</td>
+                <td align="center" width="96"><img src="https://techstack-generator.vercel.app/django-icon.svg" alt="icon" width="65" height="65" /><br>Django</td>
+                <td align="center" width="96"><img src="https://techstack-generator.vercel.app/restapi-icon.svg" width="65" height="65" alt="Rest API" /><br>Rest API</td>
+                <td align="center" width="96"><img src="https://techstack-generator.vercel.app/docker-icon.svg" width="65" height="65" alt="Docker" /><br>Docker</td>
+                <td align="center" width="96"><img src="https://techstack-generator.vercel.app/nginx-icon.svg" alt="icon" width="50" height="50" /><br>Nginx</td>
+              </tr>
+              <tr>
+                <td align="center" width="96"><img src="https://skillicons.dev/icons?i=git" width="48" height="48" alt="Git" /><br>Git</td>
+                <td align="center" width="96"><img src="https://skillicons.dev/icons?i=gitlab" width="48" height="48" alt="GitLab" /><br>GitLab</td>
+                <td align="center" width="96"><img src="https://skillicons.dev/icons?i=html" width="48" height="48" alt="HTML" /><br>HTML</td>
+                <td align="center" width="96"><img src="https://skillicons.dev/icons?i=css" width="48" height="48" alt="css" /><br>CSS</td>
+                <td align="center" width="96"><img src="https://skillicons.dev/icons?i=bootstrap" width="48" height="48" alt="bootstrap" /><br>Bootstrap</td>
+                <td align="center" width="96"><img src="https://skillicons.dev/icons?i=tailwind" width="48" height="48" alt="tailwind" /><br>Tailwind</td>
+                <td align="center" width="96"><img src="https://skillicons.dev/icons?i=jquery" width="48" height="48" alt="jquery" /><br>JQuery</td>
+                <td align="center" width="96"><img src="https://skillicons.dev/icons?i=postgres" width="48" height="48" alt="PostgreSQL" /><br>PostgreSQL</td>
+                <td align="center" width="96"><img src="https://skillicons.dev/icons?i=dotnet" width="48" height="48" alt="ASP.NET Core" /><br>ASP.NET</td>
+              </tr>
+              <tr>
+                <td align="center" width="96"><img src="https://skillicons.dev/icons?i=redis" width="48" height="48" alt="Redis" /><br>Redis</td>
+                <td align="center" width="96"><img src="https://skillicons.dev/icons?i=postman" width="48" height="48" alt="Postman" /><br>Postman</td>
+                <td align="center" width="96"><img src="https://skillicons.dev/icons?i=linux" width="48" height="48" alt="Linux" /><br>Linux</td>
+                <td align="center" width="96"><img src="https://skillicons.dev/icons?i=dart" width="48" height="48" alt="dart" /><br>Dart</td>
+                <td align="center" width="96"><img src="https://skillicons.dev/icons?i=rabbitmq" width="48" height="48" alt="RabbitMQ" /><br>RabbitMQ</td>
+                <td align="center" width="96"><img src="https://skillicons.dev/icons?i=sentry" width="48" height="48" alt="sentry" /><br>sentry</td>
+                <td align="center" width="96"><img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Celery_logo.png" width="48" height="48" alt="Celery" /><br>Celery</td>
+                <td align="center" width="96"><img src="https://docusaurus.io/img/docusaurus_keytar.svg" width="48" height="48" alt="Docusaurus" /><br>Docusaurus</td>
+                <td align="center" width="96"><img src="https://bruhin.software/img/logos/pytest.svg" width="40" height="40" alt="Pytest" /><br>Pytest</td>
+              </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card trophy-connect-card">
+        <h3>GitHub Profile Trophy 🏆</h3>
+        <div class="trophy-wrapper">
+            <img src="https://user-images.githubusercontent.com/6661165/93668661-e0ca9f00-fac8-11ea-9bec-325454f49fb4.png" alt="Trophies Row 1">
+            <img src="https://user-images.githubusercontent.com/6661165/113709167-2412f500-971d-11eb-9ee5-0ab292cf8b4c.png" alt="Trophies Row 2">
+        </div>
+        
+        <div class="social-connect-links">
+            <a href="https://wa.me/8801977547920" target="_blank">
+                <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/stack-overflow.svg" alt="Stack Overflow" style="background: #2b2930; padding: 2px; width: 40px;" />
+            </a>
+            <a href="https://github.com/AlexJamesHQ" target="_blank">
+                <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />
+            </a>
+            <a href="https://www.facebook.com/share/1BibjbqQS6/" target="_blank">
+                <img src="https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white" alt="Facebook" />
+            </a>
+            <a href="https://www.instagram.com/alex.james.dev?igsh=dDg5cG5nZTB6aDBx" target="_blank">
+                <img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram" />
+            </a>
+        </div>
+    </div>
+
+    <div class="middle-row">
+        <div class="card github-card">
+            <div style="text-align: center; width: 100%; margin-bottom: 4px;">
+                <h3 style="font-size: 12px; color: #d0bcff; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">GitHub Views</h3>
+            </div>
+            <div class="github-stats-wrapper">
+                <img src="https://i.postimg.cc/wjyh0nFN/animejs-v4-logo-animation.gif" alt="GitHub Streak Stats" />
+            </div>
+        </div>
+
+        <div class="right-column">
+            <div class="card solved-card">
+                <div class="progress-circle-wrapper">
+                    <div class="progress-circle"></div>
+                    <div class="progress-text">
+                        <span class="count">6 Languages</span>
+                        <span class="label">Most Used</span>
+                    </div>
+                </div>
+                <div class="difficulty-list">
+                    <div class="diff-item dart"><span class="diff-name">Dart</span> <strong>63.24%</strong></div>
+                    <div class="diff-item java"><span class="diff-name">Java</span> <strong>11.29%</strong></div>
+                    <div class="diff-item cpp"><span class="diff-name">C++</span> <strong>6.91%</strong></div>
+                    <div class="diff-item css"><span class="diff-name">CSS</span> <strong>6.73%</strong></div>
+                    <div class="diff-item cmake"><span class="diff-name">CMake</span> <strong>6.06%</strong></div>
+                    <div class="diff-item objc"><span class="diff-name">Objective-C</span> <strong>5.77%</strong></div>
+                </div>
+            </div>
+
+            <div class="card snake-card">
+                <div style="width: 100%; display: flex; justify-content: center;">
+                    <img src="https://profile-readme-generator.com/assets/snake.svg" alt="Snake animation" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="year-header">2026</div>
+    <div class="card submission-card">
+        <h3>637 submissions in 2026</h3>
+        <div class="submission-meta">Total active days: 112 &nbsp;•&nbsp; Max streak: 14</div>
+        <div class="heatmap-scroll-box">
+            <div class="heatmap-wrapper">
+                <div class="days-labels"><span>Mon</span><span>Wed</span><span>Fri</span></div>
+                <div class="heatmap-container">
+                    <div class="months-row">
+                        <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span>
+                    </div>
+                    <div class="heatmap-grid" id="grid-2026"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="year-header">2025</div>
+    <div class="card submission-card">
+        <h3>2,022 submissions in 2025</h3>
+        <div class="submission-meta">Total active days: 304 &nbsp;•&nbsp; Max streak: 45</div>
+        <div class="heatmap-scroll-box">
+            <div class="heatmap-wrapper">
+                <div class="days-labels"><span>Mon</span><span>Wed</span><span>Fri</span></div>
+                <div class="heatmap-container">
+                    <div class="months-row">
+                        <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span>
+                    </div>
+                    <div class="heatmap-grid" id="grid-2025"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- iOS Profile Modal Layer -->
+<div class="ios-ui-layer" id="profileUilayer" onclick="closeProfileLayer(event)">
+    <div class="ios-sheet-container" onclick="event.stopPropagation()">
+        <img class="modal-profile-img" src="https://github.com/user-attachments/assets/1e567e29-cf52-4fc1-b638-48bc4de91b57" alt="Profile Large Image">
+        <h2>ΛLΞX JΛMΞS ᗪEV</h2>
+        <p>UI/UX, Web/App Development, 3D & Branding Agency. Passionate about creating premium user interfaces and high-performance digital architectures.</p>
+        <button class="ios-action-dismiss" onclick="closeProfileLayer(null)">Dismiss</button>
+    </div>
+</div>
+
+<!-- iOS Custom Photo Gallery Modal Layer -->
+<div class="ios-ui-layer" id="galleryUilayer">
+    <div class="ios-sheet-container">
+        
+        <div class="ios-gallery-slider">
+            <div class="ios-slider-track" id="gallerySliderTrack">
+                <div class="ios-slide-node">
+                    <img src="https://github.com/user-attachments/assets/1e567e29-cf52-4fc1-b638-48bc4de91b57" alt="Gallery Node">
+                </div>
+                <div class="ios-slide-node">
+                    <img src="https://i.postimg.cc/JhTXkb5h/ALEX-JAMES-ᗪEV.jpg" alt="Gallery Node">
+                </div>
+                <div class="ios-slide-node">
+                    <img src="https://i.postimg.cc/mgF9FrTW/1776962820016-2.jpg" alt="Gallery Node">
+                </div>
+            </div>
+            
+            <div class="ios-nav-dots" id="sliderDotsWrapper"></div>
+        </div>
+
+        <div class="ios-score-grid" id="scoreGridBoard">
+            <div class="score-item" id="card_heart">
+                <span>❤️</span>
+                <span class="score-badge" id="c_heart">0</span>
+            </div>
+            <div class="score-item" id="card_sparkle_heart">
+                <span>💖</span>
+                <span class="score-badge" id="c_sparkle_heart">0</span>
+            </div>
+            <div class="score-item" id="card_sakura">
+                <span>🌸</span>
+                <span class="score-badge" id="c_sakura">0</span>
+            </div>
+            <div class="score-item" id="card_rose">
+                <span>🌹</span>
+                <span class="score-badge" id="c_rose">0</span>
+            </div>
+            <div class="score-item" id="card_star">
+                <span>✨</span>
+                <span class="score-badge" id="c_star">0</span>
+            </div>
+            <div class="score-item" id="card_tulip">
+                <span>🌷</span>
+                <span class="score-badge" id="c_tulip">0</span>
+            </div>
+        </div>
+
+        <button class="ios-action-dismiss" onclick="closeGalleryLayer()">Close</button>
+    </div>
+</div>
+
+<!-- Bottom Sticky Menu -->
+<div class="ios-fixed-menu-scope" id="iosMenuScope">
+    <div class="ios-menu-container">
+        <a href="https://t.me/ALEX_JAMES_DEV" target="_blank" class="ios-btn-wrapper">
+            <span class="ios-btn-label">ΛNᗪROIᗪ LΛᗷ</span>
+            <div class="ios-btn-circle bg-telegram">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z" fill="#fff"/></svg>
+            </div>
+        </a>
+        <a href="https://github.com/AlexJamesHQ/Gemini-Ai/releases/tag/Gemini-Ai" target="_blank" class="ios-btn-wrapper">
+            <span class="ios-btn-label">Show Repository</span>
+            <div class="ios-btn-circle bg-github">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.577.688.479C19.138 20.162 22 16.418 22 12c0-5.523-4.477-10-10-10z" fill="#fff"/></svg>
+            </div>
+        </a>
+        <a href="https://wa.me/8801977547920" target="_blank" class="ios-btn-wrapper">
+            <span class="ios-btn-label">WhatsApp</span>
+            <div class="ios-btn-circle bg-whatsapp">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.371-.025-.521-.075-.148-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.454 5.709 1.455h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="#fff"/></svg>
+            </div>
+        </a>
+        <a href="https://www.facebook.com/share/1BibjbqQS6/" target="_blank" class="ios-btn-wrapper">
+            <span class="ios-btn-label">Facebook</span>
+            <div class="ios-btn-circle bg-facebook">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#fff"/></svg>
+            </div>
+        </a>
+        <a href="https://www.instagram.com/alex.james.dev?igsh=dDg5cG5nZTB6aDBx" target="_blank" class="ios-btn-wrapper">
+            <span class="ios-btn-label">Instagram</span>
+            <div class="ios-btn-circle bg-instagram">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" fill="#fff"/></svg>
+            </div>
+        </a>
+    </div>
+
+    <button class="ios-trigger-btn" onclick="toggleIosMenu()" aria-label="Toggle social menu">
+        <img class="trigger-img" src="https://github.com/user-attachments/assets/1e567e29-cf52-4fc1-b638-48bc4de91b57" alt="Profile Control">
+        <svg class="close-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+    </button>
+</div>
+
+<script>
+    let activeSlideIndex = 0;
+    let autoScrollTimer = null;
+    let particleInterval = null;
+
+    let currentAudioPlayer = null;
+    let crossfadeCheckTimer = null;
+    let fadeInterval = null;
+    const CROSSFADE_TIME = 2.5; 
+    const FADE_IN_TIME = 2000;   
+    const FADE_OUT_TIME = 1500;  
+
+    function playAudioWithFade() {
+        stopAudioEngineImmediate(); 
+        
+        const audioA = document.getElementById('audioA');
+        audioA.currentTime = 0;
+        audioA.volume = 0;
+        currentAudioPlayer = audioA;
+
+        audioA.play().then(() => {
+            smoothFadeIn(audioA, FADE_IN_TIME);
+            monitorCrossfade();
+        }).catch(err => console.log('Audio autoplay blocked or failed:', err));
+    }
+
+    function smoothFadeIn(audioElem, duration) {
+        clearInterval(fadeInterval);
+        let start = Date.now();
+        audioElem.volume = 0;
+        fadeInterval = setInterval(() => {
+            let elapsed = Date.now() - start;
+            let progress = elapsed / duration;
+            if (progress >= 1) {
+                audioElem.volume = 1;
+                clearInterval(fadeInterval);
+            } else {
+                audioElem.volume = progress;
+            }
+        }, 50);
+    }
+
+    function monitorCrossfade() {
+        clearInterval(crossfadeCheckTimer);
+        crossfadeCheckTimer = setInterval(() => {
+            if (!currentAudioPlayer) return;
+            
+            let remaining = currentAudioPlayer.duration - currentAudioPlayer.currentTime;
+            
+            if (remaining <= CROSSFADE_TIME && remaining > 0) {
+                clearInterval(crossfadeCheckTimer);
+                
+                let nextAudio = (currentAudioPlayer === document.getElementById('audioA')) ? 
+                                document.getElementById('audioB') : document.getElementById('audioA');
+                
+                nextAudio.currentTime = 0;
+                nextAudio.volume = 0;
+                
+                let fadeOutAudio = currentAudioPlayer;
+                let fadeOutTimer = setInterval(() => {
+                    if (fadeOutAudio.volume > 0.1) {
+                        fadeOutAudio.volume -= 0.08;
+                    } else {
+                        fadeOutAudio.volume = 0;
+                        fadeOutAudio.pause();
+                        clearInterval(fadeOutTimer);
+                    }
+                }, 100);
+
+                currentAudioPlayer = nextAudio;
+                currentAudioPlayer.play().then(() => {
+                    smoothFadeIn(currentAudioPlayer, 1500);
+                    monitorCrossfade(); 
+                }).catch(err => console.log(err));
+            }
+        }, 200);
+    }
+
+    function stopAudioWithFade(duration = FADE_OUT_TIME) {
+        clearInterval(crossfadeCheckTimer);
+        clearInterval(fadeInterval);
+        
+        const audioA = document.getElementById('audioA');
+        const audioB = document.getElementById('audioB');
+        const activeAudios = [audioA, audioB].filter(a => !a.paused && a.volume > 0);
+
+        if (activeAudios.length === 0) return;
+
+        let start = Date.now();
+        let initialVolumes = activeAudios.map(a => a.volume);
+
+        fadeInterval = setInterval(() => {
+            let elapsed = Date.now() - start;
+            let progress = elapsed / duration;
+
+            if (progress >= 1) {
+                activeAudios.forEach(a => {
+                    a.volume = 0;
+                    a.pause();
+                    a.currentTime = 0;
+                });
+                clearInterval(fadeInterval);
+                currentAudioPlayer = null;
+            } else {
+                activeAudios.forEach((a, index) => {
+                    a.volume = Math.max(0, initialVolumes[index] * (1 - progress));
+                });
+            }
+        }, 40);
+    }
+
+    function stopAudioEngineImmediate() {
+        clearInterval(crossfadeCheckTimer);
+        clearInterval(fadeInterval);
+        
+        const audioA = document.getElementById('audioA');
+        const audioB = document.getElementById('audioB');
+        
+        [audioA, audioB].forEach(a => {
+            a.pause();
+            a.currentTime = 0;
+            a.volume = 0;
+        });
+        currentAudioPlayer = null;
+    }
+
+    const counts = {
+        '❤️': 0,
+        '💖': 0,
+        '🌸': 0,
+        '🌹': 0,
+        '✨': 0,
+        '🌷': 0
+    };
+
+    const emojiCardMap = {
+        '❤️': 'card_heart',
+        '💖': 'card_sparkle_heart',
+        '🌸': 'card_sakura',
+        '🌹': 'card_rose',
+        '✨': 'card_star',
+        '🌷': 'card_tulip'
+    };
+
+    const emojiGlowColorMap = {
+        '❤️': '#ffb4ab',
+        '💖': '#ffb4ab',
+        '🌸': '#ffd8e4',
+        '🌹': '#ffb4ab',
+        '✨': '#ffe082',
+        '🌷': '#d0bcff'
+    };
+
+    function toggleIosMenu() {
+        document.getElementById('iosMenuScope').classList.toggle('menu-open');
+    }
+
+    function openProfileLayer() {
+        document.getElementById('profileUilayer').classList.add('active');
+    }
+
+    function closeProfileLayer(e) {
+        if (!e || e.target === document.getElementById('profileUilayer')) {
+            document.getElementById('profileUilayer').classList.remove('active');
+        }
+    }
+
+    function openGalleryLayer() {
+        document.getElementById('galleryUilayer').classList.add('active');
+        initSliderSetup();
+        startFallingParticles();
+        playAudioWithFade();
+    }
+
+    function closeGalleryLayer() {
+        document.getElementById('galleryUilayer').classList.remove('active');
+        clearInterval(autoScrollTimer);
+        stopFallingParticles();
+        document.getElementById('scoreGridBoard').classList.remove('visible');
+        stopAudioWithFade(1500);
+    }
+
+    function startFallingParticles() {
+        const layer = document.getElementById('galleryUilayer');
+        const items = ['❤️', '💖', '🌸', '🌹', '✨', '🌷']; 
+        
+        particleInterval = setInterval(() => {
+            const particle = document.createElement('div');
+            particle.className = 'falling-particle';
+            const chosenEmoji = items[Math.floor(Math.random() * items.length)];
+            particle.innerText = chosenEmoji;
+            
+            const randomX = Math.random() * 90 + 5;
+            particle.style.left = randomX + 'vw';
+            
+            const duration = Math.random() * 3 + 3; 
+            particle.style.animationDuration = duration + 's';
+
+            let isPopped = false;
+
+            const triggerAction = function(e) {
+                if (isPopped) return;
+                isPopped = true;
+
+                let clientX = window.innerWidth * (randomX / 100);
+                let clientY = window.innerHeight * 0.5;
+
+                if (e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    if (e.touches && e.touches.length > 0) {
+                        clientX = e.touches[0].clientX;
+                        clientY = e.touches[0].clientY;
+                    } else if (e.changedTouches && e.changedTouches.length > 0) {
+                        clientX = e.changedTouches[0].clientX;
+                        clientY = e.changedTouches[0].clientY;
+                    } else if (e.clientX && e.clientY) {
+                        clientX = e.clientX;
+                        clientY = e.clientY;
+                    }
+                }
+                
+                const scoreBoard = document.getElementById('scoreGridBoard');
+                if (!scoreBoard.classList.contains('visible')) {
+                    scoreBoard.classList.add('visible');
+                }
+
+                if (counts[chosenEmoji] !== undefined) {
+                    counts[chosenEmoji]++;
+                    updateCountersUI();
+                    
+                    const cardId = emojiCardMap[chosenEmoji];
+                    if (cardId) {
+                        const targetCard = document.getElementById(cardId);
+                        targetCard.classList.add('pulse-pop');
+                        setTimeout(() => {
+                            targetCard.classList.remove('pulse-pop');
+                        }, 280);
+                    }
+                }
+
+                createBurstEffect(clientX, clientY, particle.innerText);
+                particle.remove(); 
+            };
+
+            particle.addEventListener('click', triggerAction);
+            particle.addEventListener('touchstart', triggerAction, { passive: false });
+            
+            layer.appendChild(particle);
+            
+            setTimeout(() => {
+                if (particle.parentNode && !isPopped) {
+                    particle.remove();
+                }
+            }, duration * 1000);
+
+        }, 250); 
+    }
+
+    function updateCountersUI() {
+        document.getElementById('c_heart').innerText = counts['❤️'];
+        document.getElementById('c_sparkle_heart').innerText = counts['💖'];
+        document.getElementById('c_sakura').innerText = counts['🌸'];
+        document.getElementById('c_rose').innerText = counts['🌹'];
+        document.getElementById('c_star').innerText = counts['✨'];
+        document.getElementById('c_tulip').innerText = counts['🌷'];
+    }
+
+    function createBurstEffect(x, y, emoji) {
+        const particleCount = 12; 
+        const glowColor = emojiGlowColorMap[emoji] || '#ffffff';
+        
+        for (let i = 0; i < particleCount; i++) {
+            const spark = document.createElement('div');
+            spark.className = 'burst-sparkle';
+            spark.innerText = emoji;
+            spark.style.filter = `drop-shadow(0 0 8px ${glowColor})`;
+            
+            spark.style.left = x + 'px';
+            spark.style.top = y + 'px';
+            
+            const angle = (i / particleCount) * Math.PI * 2;
+            const velocity = Math.random() * 90 + 50; 
+            const targetX = Math.cos(angle) * velocity + 'px';
+            const targetY = Math.sin(angle) * velocity + 'px';
+            
+            spark.style.setProperty('--x', targetX);
+            spark.style.setProperty('--y', targetY);
+            
+            document.body.appendChild(spark);
+            
+            setTimeout(() => {
+                spark.remove();
+            }, 650);
+        }
+    }
+
+    function stopFallingParticles() {
+        clearInterval(particleInterval);
+        const activeParticles = document.querySelectorAll('.falling-particle');
+        activeParticles.forEach(p => p.remove());
+    }
+
+    function initSliderSetup() {
+        const track = document.getElementById('gallerySliderTrack');
+        const wrapper = document.getElementById('sliderDotsWrapper');
+        const nodes = track.children;
+        
+        wrapper.innerHTML = "";
+        activeSlideIndex = 0;
+        track.style.transform = `translateX(0px)`;
+
+        if(nodes.length <= 1) return;
+
+        for(let i = 0; i < nodes.length; i++) {
+            const dot = document.createElement('div');
+            dot.className = i === 0 ? 'ios-dot active' : 'ios-dot';
+            dot.onclick = () => jumpToSlide(i);
+            wrapper.appendChild(dot);
+        }
+
+        clearInterval(autoScrollTimer);
+        autoScrollTimer = setInterval(() => {
+            activeSlideIndex = (activeSlideIndex + 1) % nodes.length;
+            updateSliderPosition();
+        }, 3000);
+    }
+
+    function jumpToSlide(index) {
+        activeSlideIndex = index;
+        updateSliderPosition();
+        clearInterval(autoScrollTimer);
+    }
+
+    function updateSliderPosition() {
+        const track = document.getElementById('gallerySliderTrack');
+        const dots = document.getElementById('sliderDotsWrapper').children;
+        
+        track.style.transform = `translateX(-${activeSlideIndex * 100}%)`;
+        
+        for(let i = 0; i < dots.length; i++) {
+            dots[i].className = i === activeSlideIndex ? 'ios-dot active' : 'ios-dot';
+        }
+    }
+
+    document.addEventListener('contextmenu', e => e.preventDefault()); 
+    document.addEventListener('copy', e => e.preventDefault());        
+    document.addEventListener('keydown', e => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'c') e.preventDefault();
+    });
+    document.addEventListener('dragstart', e => e.preventDefault());   
+    document.addEventListener('selectstart', e => e.preventDefault()); 
+
+    function renderYearGrid(gridId) {
+        const target = document.getElementById(gridId);
+        if (!target) return;
+        target.innerHTML = ""; 
+        for (let w = 0; w < 53; w++) {
+            const col = document.createElement('div');
+            col.className = 'week-column';
+            for (let d = 0; d < 7; d++) {
+                const block = document.createElement('div');
+                block.className = 'cube';
+                let factor = Math.random();
+                if (factor > 0.15) {
+                    let tiers = ['lvl-1', 'lvl-2', 'lvl-3', 'lvl-4'];
+                    block.classList.add(tiers[Math.floor(Math.random() * tiers.length)]);
+                }
+                col.appendChild(block);
+            }
+            target.appendChild(col);
+        }
+    }
+    
+    renderYearGrid('grid-2026');
+    renderYearGrid('grid-2025');
+</script>
+
+</body>
+</html>
